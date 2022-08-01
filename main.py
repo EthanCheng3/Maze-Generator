@@ -1,3 +1,4 @@
+from prim import *
 import tcod
 
 # Window Controls
@@ -61,11 +62,8 @@ def make_map():
         for x in range(MAP_WIDTH)
     ]
 
-    # place two tiles to test the map
-    map[30][22].blocked = True
-    map[30][22].block_sight = True
-    map[50][22].blocked = True
-    map[50][22].block_sight = True
+    # decides on an algorithm to use when creating maze
+    randomizedprimsalgorithm(map)
 
 
 def render_all():
