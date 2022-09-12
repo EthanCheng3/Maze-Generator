@@ -18,10 +18,11 @@ def prim_generate_maze(width, height):
     # list of unvisited walls around starting point
     # TODO: Implement heap to generate correctly, no weight on selection
     frontierwalls = [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]]
+    counter = 0
 
     # while there are still walls in the list
-    # TODO: logic is not joining passages (check corners for passage?)
-    while len(frontierwalls) != 0:
+    # TODO: logic is not joining passages (check corners for passage?) (or could be a data structure problem)
+    while len(frontierwalls) != 0 and counter < 100000:
         # random wall to view
         rand = random.randint(0, len(frontierwalls) - 1)
         # changes current cell that is being viewed
@@ -31,6 +32,7 @@ def prim_generate_maze(width, height):
         if frontierwalls[rand][0] <= 0 or frontierwalls[rand][0] >= 79 or \
            frontierwalls[rand][1] <= 0 or frontierwalls[rand][1] >= 59:
             frontierwalls.pop(rand)
+            counter += 1
         else:
             # counter for amount of passages around current cell
             passage = 0
@@ -53,11 +55,9 @@ def prim_generate_maze(width, height):
                     frontierwalls.append([x, y + 1])
                 if map[x][y - 1].blocked:
                     frontierwalls.append([x, y - 1])
-                frontierwalls.pop(rand)
-                passage = 0
             else:
                 frontierwalls.pop(rand)
-                passage = 0
+                counter += 1
 
     # Creates wall on the border of the window
     for i in range(height):
@@ -68,6 +68,13 @@ def prim_generate_maze(width, height):
         map[i][0].blocked = True
         map[i][height - 1].blocked = True
 
-    # TODO: Create start and exit
+    # TODO: Create start and exit (Once data structure is implemented, start at a border wall?)
+    # startexit = 0
+    # while startexit < 2:
+    #     random.randint(0, width)
+    #     random.randint(0, height)
+        # if passage exists:
+            # turn wall into passage
+            # startexit += 1
 
     return map

@@ -40,20 +40,3 @@ def render_all(con, map, objects, color_wall, width, height):
         object.draw(con)
 
     return map
-
-
-# handles user input
-def handle_keys(player, map):
-    # movement keys
-    if tcod.event.KeySym.UP:
-        player.move(0, -1, map)
-
-    elif tcod.event.KeySym.DOWN:
-        player.move(0, 1, map)
-
-    elif tcod.event.KeySym.LEFT:
-        player.move(-1, 0, map)
-
-    elif tcod.event.KeySym.RIGHT:
-        player.move(1, 0, map)
-
